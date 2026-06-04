@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
  *  RUMAH LAUNDRY â€” Riwayat Transaksi (Admin)
@@ -226,5 +226,32 @@ if ($filterStatus === 'Selesai') {
 
     <script src="../script/dashboard.js"></script>
     <script src="../script/riwayat_admin.js?v=<?= time() ?>"></script>
+
+    <!-- LOGOUT OVERLAY -->
+    <div id="logout-overlay" data-logout-url="logout.php">
+        <div class="card">
+            <button class="close">×</button>
+
+            <h2 class="title">Akhiri sesi administrasi? </h2>
+            <p class="desc">Pastikan seluruh perubahan telah disimpan sebelum keluar. Sesi administrator akan berakhir sepenuhnya.</p>
+
+            <div class="session">
+                <div class="session-avatar"><?= strtoupper(substr($adminNama, 0, 1)) ?></div>
+                <div>
+                    <div class="session-name"><?= $adminNama ?></div>
+                    <div class="session-role">Administrator</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="btn-row">
+                <button class="btn-modal btn-ghost">Batalkan</button>
+                <button class="btn-modal btn-confirm">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script/logout-modal.js?v=<?= time() ?>"></script>
 </body>
 </html>

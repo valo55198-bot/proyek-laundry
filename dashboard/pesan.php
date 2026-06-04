@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
  *  RUMAH LAUNDRY â€” Pesan Pelanggan (List Data)
@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) { header('Location: ../login.php'); exit; }
 
 $adminNama = e($_SESSION['nama'] ?? 'Admin');
 
-$data = $conn->query("SELECT * FROM pengiriman ORDER BY pesan DESC");
+$data = $conn->query("SELECT * FROM pengiriman ORDER BY id_pengiriman DESC");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -94,7 +94,7 @@ $data = $conn->query("SELECT * FROM pengiriman ORDER BY pesan DESC");
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
-                                <tr><td colspan="7" style="text-align:center;padding:40px;">Belum ada pesan masuk</td></tr>
+                                <tr><td colspan="8" style="text-align:center;padding:40px;">Belum ada pesan masuk</td></tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -102,6 +102,6 @@ $data = $conn->query("SELECT * FROM pengiriman ORDER BY pesan DESC");
             </div>
         </main>
     </div>
-    <script src="dashboard.js"></script>
+    <script src="../script/dashboard.js"></script>
 </body>
 </html>

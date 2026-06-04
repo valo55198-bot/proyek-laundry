@@ -21,16 +21,4 @@ document.getElementById('edit_foto').addEventListener('change', function() {
   }
 });
 
-// Fetch order count for stats (optional, graceful fail)
-(function() {
-  fetch('dashboard/api_count_orders.php')
-    .then(r => r.json())
-    .then(data => {
-      if (data && data.count !== undefined) {
-        document.getElementById('statOrders').textContent = data.count;
-      }
-    })
-    .catch(() => {
-      document.getElementById('statOrders').textContent = '0';
-    });
-})();
+// Order count already rendered server-side in PHP; no JS fetch needed.

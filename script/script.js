@@ -280,6 +280,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => {
                 console.error('Tracking Error:', err);
                 trackLoading.classList.remove('show');
+                
+                const notFoundTitle = trackNotFound.querySelector('h3');
+                const notFoundText = trackNotFound.querySelector('p');
+                notFoundTitle.textContent = 'Koneksi Bermasalah';
+                notFoundText.textContent = 'Gagal menghubungi server. Pastikan koneksi internet Anda aktif dan coba lagi.';
+                
                 trackNotFound.classList.add('show');
             });
     }
@@ -398,7 +404,98 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* ══════════════════════════════
+       8. SWIPE TO SUBMIT BUTTON
+       ══════════════════════════════ */
+    const swipeContainer = document.getElementById('swipeSubmitContainer');
+    const swipeThumb = document.getElementById('swipeSubmitThumb');
+    const swipeText = document.getElementById('swipeSubmitText');
+    const swipeIcon = document.getElementById('swipeSubmitIcon');
+    const hiddenSubmitBtn = document.getElementById('hiddenSubmitBtn');
+    
+    if (swipeContainer && swipeThumb && hiddenSubmitBtn) {
+        let isDragging = false;
+        let startX = 0;
+        let maxDrag = 0;
+        const form = hiddenSubmitBtn.closest('form');
 
+        const initDrag = (clientX) => {
+            if (swipeContainer.classList.contains('success')) return;
+            
+            // Check HTML5 validity before allowing swipe
+            if (form && !form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            isDragging = true;
+            startX = clientX - (parseInt(swipeThumb.style.left) || 6);
+            maxDrag = swipeContainer.offsetWidth - swipeThumb.offsetWidth - 6;
+            
+            swipeThumb.style.transition = 'none';
+        };
+
+        const onDrag = (clientX) => {
+            if (!isDragging) return;
+            let currentX = clientX - startX;
+            
+            if (currentX < 6) currentX = 6;
+            if (currentX > maxDrag) currentX = maxDrag;
+            
+            swipeThumb.style.left = currentX + 'px';
+            
+            // Fade text out as we drag
+            const opacity = 1 - (currentX / maxDrag);
+            swipeText.style.opacity = Math.max(0, opacity);
+        };
+
+        const stopDrag = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const currentX = parseInt(swipeThumb.style.left) || 6;
+            swipeThumb.style.transition = 'left 0.3s ease, background-color 0.3s';
+            
+            // If dragged past 80%, trigger success
+            if (currentX >= maxDrag * 0.8) {
+                swipeThumb.style.left = maxDrag + 'px';
+                swipeContainer.classList.add('success');
+                swipeText.textContent = 'Terkirim';
+                swipeText.style.opacity = 1;
+                swipeIcon.className = 'fas fa-check';
+                
+                // Submit form after a short delay
+                setTimeout(() => {
+                    hiddenSubmitBtn.click();
+                }, 300);
+            } else {
+                // Snap back
+                swipeThumb.style.left = '6px';
+                swipeText.style.opacity = 1;
+            }
+        };
+
+        // Mouse events
+        swipeThumb.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            initDrag(e.clientX);
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) onDrag(e.clientX);
+        });
+        document.addEventListener('mouseup', stopDrag);
+
+        // Touch events
+        swipeThumb.addEventListener('touchstart', (e) => {
+            initDrag(e.touches[0].clientX);
+        }, { passive: true });
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                // e.preventDefault(); // careful with passive listeners
+                onDrag(e.touches[0].clientX);
+            }
+        }, { passive: false });
+        document.addEventListener('touchend', stopDrag);
+    }
 
 });
-

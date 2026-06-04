@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
  *  RUMAH LAUNDRY â€” API Cek Status Pesanan
@@ -27,20 +27,26 @@ if ($result->num_rows === 1) {
         exit;
     }
     
+    $status_db = strtolower(trim($order['status']));
+    
     $statusMap = [
-        'Baru'          => ['label' => 'Order Diterima', 'step' => 1, 'class' => 'waiting'],
+        'baru'          => ['label' => 'Order Diterima', 'step' => 1, 'class' => 'waiting'],
+        'menunggu'      => ['label' => 'Order Diterima', 'step' => 1, 'class' => 'waiting'],
+        'waiting'       => ['label' => 'Order Diterima', 'step' => 1, 'class' => 'waiting'],
         
-        'Dicuci'        => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
-        'Diproses'      => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
-        'Sedang Dicuci' => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
-        'Di Proses'     => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
+        'dicuci'        => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
+        'diproses'      => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
+        'sedang dicuci' => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
+        'di proses'     => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
+        'processing'    => ['label' => 'Diproses', 'step' => 2, 'class' => 'diproses'],
         
-        'Dijemput'      => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai'],
-        'Dikirim'       => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai'],
-        'Selesai'       => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai']
+        'dijemput'      => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai'],
+        'dikirim'       => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai'],
+        'selesai'       => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai'],
+        'done'          => ['label' => 'Selesai', 'step' => 3, 'class' => 'selesai'],
     ];
 
-    $sInfo = $statusMap[$order['status']] ?? $statusMap['Baru'];
+    $sInfo = $statusMap[$status_db] ?? $statusMap['baru'];
 
     echo json_encode([
         'found'   => true,

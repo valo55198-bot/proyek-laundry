@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 session_start();
 
@@ -17,11 +17,7 @@ if ($conn->connect_error) {
 
 $conn->set_charset('utf8mb4');
 
-/*
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- *  2. DATABASE MIGRATIONS (Auto-setup)
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- */
+
 $_migrateDb = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = 'transaksi' AND COLUMN_NAME = 'alamat'");
 if ($_migrateDb && $_migrateDb->fetch_row()[0] == 0) {
     $conn->query("ALTER TABLE transaksi ADD COLUMN alamat VARCHAR(255) NOT NULL DEFAULT ''");
@@ -88,6 +84,7 @@ if ($_migrateAlamatP && $_migrateAlamatP->fetch_row()[0] == 0) {
  */
 /*CREATE / SIMPAN DATA*/
 if (isset($_POST['addDataBtn'])) {
+    if (!isLoggedIn()) { header('Location: ../login.php'); exit; }
 
     $kode_order = "RL-" . rand(1000, 9999);
     $nama                = $_POST['nama'];
@@ -119,6 +116,7 @@ if (isset($_POST['addDataBtn'])) {
 
 /*UPDATE DATA*/
 if (isset($_POST['update'])) {
+    if (!isLoggedIn()) { header('Location: ../login.php'); exit; }
 
     $id                  = (int)($_POST['id_laundry'] ?? 0);
     $nama                = $_POST['nama'];
@@ -162,7 +160,7 @@ if (isset($_POST['update'])) {
                      . "($jenis_layanan - $jenis_pencucian) telah *Selesai*. "
                      . "Silakan datang untuk mengambil pesanan Anda. "
                      . "Alamat: $alamatWA. "
-                     . "Terima kasih telah menggunakan Rumah Laundry! ðŸ§º";
+                     . "Terima kasih telah menggunakan Rumah Laundry!";
             $_SESSION['wa_notify'] = [
                 'nama' => $nama,
                 'url'  => 'https://wa.me/' . $noHp . '?text=' . rawurlencode($pesanWA),
@@ -187,6 +185,7 @@ if (isset($_POST['update'])) {
 
 /*DELETE DATA*/
 if (isset($_GET['hapus'])) {
+    if (!isLoggedIn()) { header('Location: ../login.php'); exit; }
 
     $id = (int)$_GET['hapus'];
 
@@ -223,6 +222,7 @@ BULK DELETE DATA
 ====================================
 */
 if (isset($_POST['bulkHapus']) && !empty($_POST['ids'])) {
+    if (!isLoggedIn()) { header('Location: ../login.php'); exit; }
     $ids = array_filter(array_map('intval', $_POST['ids']));
     if (!empty($ids)) {
         $placeholders = implode(',', array_fill(0, count($ids), '?'));
@@ -260,6 +260,7 @@ if (isset($_POST['bulkHapus']) && !empty($_POST['ids'])) {
 }
 
 if (isset($_POST['bulkHapusRiwayat']) && !empty($_POST['ids'])) {
+    if (!isLoggedIn()) { header('Location: ../login.php'); exit; }
     $ids = array_filter(array_map('intval', $_POST['ids']));
     if (!empty($ids)) {
         $placeholders = implode(',', array_fill(0, count($ids), '?'));
@@ -296,15 +297,7 @@ if (isset($_POST['bulkHapusRiwayat']) && !empty($_POST['ids'])) {
     exit;
 }
 
-/*
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- *  4. HELPER FUNCTIONS
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- */
-/**
- * Check if user is logged in
- *
- */
+
 function isLoggedIn(): bool {
     return isset($_SESSION['id']) && !empty($_SESSION['id']);
 }

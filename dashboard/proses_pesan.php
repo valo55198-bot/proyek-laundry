@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
  *  RUMAH LAUNDRY â€” Proses Pesan dari Website
@@ -44,8 +44,8 @@ $stmt2 = $conn->prepare("INSERT INTO pengiriman (kode_order, nama, no_hp, alamat
 $stmt2->bind_param('sssssssssdd', $kode_order, $nama, $no_hp, $alamat, $pesan, $pencucian, $layanan, $tanggal, $jam, $latitude, $longitude);
 
 if ($stmt1->execute() && $stmt2->execute()) {
-    $waNumber = '6282295333441'; // Nomor WhatsApp admin
-    $waMessage = "*Pesanan Baru â€” Rumah Laundry*\n\n"
+    $waNumber = '6285804086257'; // Nomor WhatsApp admin
+    $waMessage = "*Pesanan Baru Rumah Laundry*\n\n"
         . "*Kode Order:* {$kode_order}\n"
         . "*Nama:* {$nama}\n"
         . "*No HP:* {$no_hp}\n"
@@ -67,6 +67,6 @@ if ($stmt1->execute() && $stmt2->execute()) {
     header('Location: ' . $waUrl);
     exit;
 } else {
-    header('Location: ../front-end/index.php?status=error');
+    header('Location: ../index.php?status=error');
     exit;
 }

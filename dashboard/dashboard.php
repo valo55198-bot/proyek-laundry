@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 
 require_once 'config.php';
 
-if (!isset($_SESSION['id'])) { header('Location: ../login.php'); exit; }
+requireAdmin();
 
 $recentPesan = $conn->query("
     SELECT nama, pesan, tanggal_pengiriman 
@@ -205,7 +205,7 @@ $userNama = e($_SESSION['nama'] ?? 'Admin');
     <script src="../script/dashboard.js"></script>
 
     <!-- LOGOUT OVERLAY -->
-    <div id="logout-overlay">
+    <div id="logout-overlay" data-logout-url="logout.php">
         <div class="card">
             <button class="close">Ã—</button>
 

@@ -178,8 +178,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <!-- REGISTER VIEW -->
       <div class="form-view" id="viewRegister">
-        
-        
+        <h1 class="form-heading">Buat Akun Baru</h1>
+        <p class="form-sub">Daftar sekarang dan mulai nikmati layanan laundry premium kami.</p>
 
         <form method="POST" action="">
           <div class="field">

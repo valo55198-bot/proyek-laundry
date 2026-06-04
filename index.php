@@ -397,7 +397,7 @@ session_start();
 
                 <!-- ═══ LEFT — Info Section ═══ -->
                 <div class="contact__info">
-                    <h2 class="contact__title">Diskusikan Kebutuhan <br><span class="text-gradient">Laundry Anda</span></h2>
+                    <h2 class="contact__title">Diskusikan Kebutuhan <br>Laundry Anda</span></h2>
                     <p class="contact__desc">Apakah Anda mencari layanan laundry berkualitas tinggi yang disesuaikan dengan kebutuhan Anda? Hubungi kami sekarang.</p>
 
                     <div class="contact__details">
@@ -442,7 +442,26 @@ session_start();
                         </div>
                     </div>
 
-                    <a href="https://wa.me/6281234567890" class="contact__wa-btn" target="_blank">
+                    <div class="contact__map-desc" style="margin-top: 1.5rem; margin-bottom: 1rem;">
+                        <h4 style="color: var(--white); font-weight: 600; margin-bottom: 0.25rem; font-size: 1rem;">Lokasi Toko Kami</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0;">Silakan kunjungi lokasi kami atau hubungi via WhatsApp untuk info lebih lanjut.</p>
+                    </div>
+
+                    <!-- Embed Google Maps -->
+                    <div class="contact__map" style="border-radius: 12px; overflow: hidden; height: 200px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <!-- Nanti src iframe ini bisa diganti sendiri dengan link embed maps toko aslinya -->
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.341180218151!2d108.2713188147699!3d-6.349830595405021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6eb94dfaaaaaab%3A0x1234567890abcdef!2sIndramayu%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1717000000000!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <a href="https://wa.me/6281234567890" class="contact__wa-btn" style="margin-top: 1.5rem;" target="_blank">
                         <i class="fab fa-whatsapp"></i>
                         <span>Chat WhatsApp Sekarang</span>
                         <i class="fas fa-arrow-right"></i>
@@ -474,99 +493,116 @@ session_start();
                     <div id="formAlert" class="cfc__alert" style="display:none;"></div>
 
                     <form action="dashboard/proses_pesan.php" method="POST" class="cfc__form">
-                        <div class="cfc__field">
-                            <label for="cf_nama">Nama</label>
-                            <input id="cf_nama" type="text" name="nama" placeholder="Jane Smith" required value="<?= htmlspecialchars($_SESSION['nama'] ?? '') ?>" />
-                        </div>
 
-                        <div class="cfc__field">
-                            <label for="cf_hp">Nomor handphone</label>
-                            <input id="cf_hp" type="tel" name="no_hp" placeholder="08xxxxxxxxxx" required value="<?= htmlspecialchars($_SESSION['no_hp'] ?? '') ?>" />
-                        </div>
-
-                        <div class="cf-row-grid">
-                            <div class="cfc__field">
-                                <label for="cf_cuci">Jenis Pencucian</label>
-                                <div class="cf-select-wrap">
-                                    <select id="cf_cuci" name="jenis_pencucian" required>
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Cuci Kering">Cuci Kering</option>
-                                        <option value="Cuci Setrika">Cuci Setrika</option>
-                                    </select>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
+                        <!-- ═══ GROUP 1: Data Diri ═══ -->
+                        <div class="cfc__group">
+                            <div class="cfc__group-header">
+                                <div class="cfc__group-icon"><i class="fas fa-user"></i></div>
+                                <h3 class="cfc__group-title">Data Diri</h3>
                             </div>
-                            <div class="cfc__field">
-                                <label for="cf_layanan">Jenis Layanan</label>
-                                <div class="cf-select-wrap">
-                                    <select id="cf_layanan" name="jenis_layanan" required>
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Reguler">Reguler</option>
-                                        <option value="Express">Express</option>
-                                    </select>
-                                    <i class="fas fa-chevron-down"></i>
+
+                            <div class="cf-row-grid">
+                                <div class="cfc__field">
+                                    <label for="cf_nama">Nama Lengkap</label>
+                                    <input id="cf_nama" type="text" name="nama" placeholder="Masukkan nama lengkap" required value="<?= htmlspecialchars($_SESSION['nama'] ?? '') ?>" />
+                                </div>
+
+                                <div class="cfc__field">
+                                    <label for="cf_hp">Nomor Handphone</label>
+                                    <input id="cf_hp" type="tel" name="no_hp" placeholder="08xxxxxxxxxx" required value="<?= htmlspecialchars($_SESSION['no_hp'] ?? '') ?>" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="cf-row-grid">
-                            <div class="cfc__field">
-                                <label for="cf_tanggal">Tanggal</label>
-                                <input id="cf_tanggal" type="date" name="tanggal_pengiriman" required />
+                        <!-- ═══ GROUP 2: Detail Layanan ═══ -->
+                        <div class="cfc__group">
+                            <div class="cfc__group-header">
+                                <div class="cfc__group-icon"><i class="fas fa-tshirt"></i></div>
+                                <h3 class="cfc__group-title">Detail Layanan</h3>
                             </div>
-                            <div class="cfc__field">
-                                <label for="cf_jam">Jam</label>
-                                <input id="cf_jam" type="time" name="jam_pengiriman" required />
-                            </div>
-                        </div>
 
-                        <!-- ═══ MAP PICKER ═══ -->
-                        <div class="cfc__field">
-                            <label><i class="fas fa-map-marker-alt" style="color:var(--accent,#c67a89);margin-right:4px;"></i> Pilih Lokasi di Peta</label>
-
-                            <!-- Search Bar Alamat -->
-                            <div style="position:relative;margin-bottom:8px;">
-                                <div style="display:flex;gap:8px;">
-                                    <div style="position:relative;flex:1;">
-                                        <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#c67a89;font-size:.82rem;pointer-events:none;"></i>
-                                        <input type="text" id="mapSearchInput" placeholder="Cari nama jalan, desa, kecamatan..." autocomplete="off"
-                                            style="width:100%;padding:10px 10px 10px 34px;border:2px solid #f0e4e7;border-radius:10px;font-size:.85rem;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s;"
-                                            onfocus="this.style.borderColor='#c67a89'" onblur="this.style.borderColor='#f0e4e7'" />
-                                        <div id="mapSearchSuggestions" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1.5px solid #f0e4e7;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.1);z-index:1000;max-height:200px;overflow-y:auto;"></div>
+                            <div class="cf-row-grid">
+                                <div class="cfc__field">
+                                    <label for="cf_cuci">Jenis Pencucian</label>
+                                    <div class="cf-select-wrap">
+                                        <select id="cf_cuci" name="jenis_pencucian" required>
+                                            <option value="" disabled selected>Select...</option>
+                                            <option value="Cuci Kering">Cuci Kering</option>
+                                            <option value="Cuci Setrika">Cuci Setrika</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
                                     </div>
-                                    <button type="button" id="btnGeolocate"
-                                        style="flex-shrink:0;background:#fff;border:2px solid #f0e4e7;border-radius:10px;padding:0 14px;font-size:.82rem;font-weight:600;font-family:inherit;color:#c67a89;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .25s ease;white-space:nowrap;"
-                                        onmouseover="this.style.background='#c67a89';this.style.color='#fff';this.style.borderColor='#c67a89';"
-                                        onmouseout="this.style.background='#fff';this.style.color='#c67a89';this.style.borderColor='#f0e4e7';">
-                                        <i class="fas fa-crosshairs"></i> GPS
-                                    </button>
+                                </div>
+                                <div class="cfc__field">
+                                    <label for="cf_layanan">Jenis Layanan</label>
+                                    <div class="cf-select-wrap">
+                                        <select id="cf_layanan" name="jenis_layanan" required>
+                                            <option value="" disabled selected>Select...</option>
+                                            <option value="Reguler">Reguler</option>
+                                            <option value="Express">Express</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div id="map-picker-wrap" style="position:relative;border-radius:14px;overflow:hidden;border:2px solid #f0e4e7;box-shadow:0 2px 12px rgba(198,122,137,.08);">
-                                <div id="orderMap" style="width:100%;height:260px;z-index:1;"></div>
+                            <div class="cf-row-grid">
+                                <div class="cfc__field">
+                                    <label for="cf_tanggal">Tanggal</label>
+                                    <input id="cf_tanggal" type="date" name="tanggal_pengiriman" required />
+                                </div>
+                                <div class="cfc__field">
+                                    <label for="cf_jam">Jam</label>
+                                    <input id="cf_jam" type="time" name="jam_pengiriman" required />
+                                </div>
                             </div>
-                            <p style="font-size:.75rem;color:#9ca3af;margin-top:6px;"><i class="fas fa-info-circle"></i> Cari alamat di atas, klik peta, atau geser pin untuk menentukan titik penjemputan.</p>
+                        </div>
+
+                        <!-- ═══ GROUP 3: Lokasi & Alamat ═══ -->
+                        <div class="cfc__group">
+                            <div class="cfc__group-header">
+                                <div class="cfc__group-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <h3 class="cfc__group-title">Lokasi & Alamat</h3>
+                            </div>
+
+                            <!-- Search Bar + GPS -->
+                            <div class="cfc__map-toolbar">
+                                <div class="cfc__map-search-wrap">
+                                    <i class="fas fa-search cfc__map-search-icon"></i>
+                                    <input type="text" id="mapSearchInput" placeholder="Cari nama jalan, desa, kecamatan..." autocomplete="off" class="cfc__map-search-input" />
+                                    <div id="mapSearchSuggestions" class="cfc__map-suggestions"></div>
+                                </div>
+                                <button type="button" id="btnGeolocate" class="cfc__gps-btn">
+                                    <i class="fas fa-crosshairs"></i> <span>GPS</span>
+                                </button>
+                            </div>
+
+                            <!-- Map -->
+                            <div id="map-picker-wrap" class="cfc__map-wrap">
+                                <div id="orderMap" style="width:100%;height:220px;z-index:1;"></div>
+                            </div>
+                            <p class="cfc__map-tip"><i class="fas fa-info-circle"></i> <strong>Tips:</strong> Klik tombol GPS, lalu <strong>geser PIN</strong> ke titik tepat atap rumah Anda untuk akurasi 100%.</p>
                             <input type="hidden" name="latitude" id="cf_lat" value="" />
                             <input type="hidden" name="longitude" id="cf_lng" value="" />
-                        </div>
 
-                        <div class="cfc__field">
-                            <label for="cf_alamat">Alamat</label>
-                            <textarea id="cf_alamat" name="alamat" rows="2" placeholder="Masukkan alamat lengkap..." required></textarea>
-                        </div>
-
-                        <div class="cfc__field">
-                            <label for="cf_pesan">Message</label>
-                            <textarea id="cf_pesan" name="pesan" rows="3" placeholder="Type your message"></textarea>
-                        </div>
-
-                        <button type="submit" class="contact__submit">
-                            <div class="contact__submit-icon">
-                                <i class="fas fa-arrow-right"></i>
+                            <div class="cfc__field">
+                                <label for="cf_alamat">Alamat</label>
+                                <textarea id="cf_alamat" name="alamat" rows="2" placeholder="Masukkan alamat lengkap..." required></textarea>
                             </div>
-                            <span>Kirim</span>
-                        </button>
+
+                            <div class="cfc__field">
+                                <label for="cf_pesan">Message</label>
+                                <textarea id="cf_pesan" name="pesan" rows="3" placeholder="Type your message"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="swipe-submit" id="swipeSubmitContainer">
+                            <div class="swipe-submit__text" id="swipeSubmitText">Geser untuk Kirim</div>
+                            <div class="swipe-submit__thumb" id="swipeSubmitThumb">
+                                <i class="fas fa-arrow-right" id="swipeSubmitIcon"></i>
+                            </div>
+                        </div>
+                        <button type="submit" id="hiddenSubmitBtn" style="display: none;"></button>
                     </form>
                     <?php endif; ?>
                 </div>
@@ -629,7 +665,7 @@ session_start();
     <script src="script/index-map.js?v=<?= time() ?>"></script>
 
     <!-- LOGOUT OVERLAY -->
-    <div id="logout-overlay">
+    <div id="logout-overlay" data-logout-url="logout.php">
         <div class="card">
             <button class="close">×</button>
 

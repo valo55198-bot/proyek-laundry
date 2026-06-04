@@ -103,18 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ══════════════════════════════
-       6. LOGOUT CONFIRMATION
-       ══════════════════════════════ */
-    document.querySelectorAll('.sidebar__link--logout').forEach(btn => {
-        btn.addEventListener('click', e => {
-            if (!confirm('Yakin ingin logout?')) {
-                e.preventDefault();
-            }
-        });
-    });
-
-    /* ══════════════════════════════
-       7. KEYBOARD SHORTCUTS
+       6. KEYBOARD SHORTCUTS
        ══════════════════════════════ */
     document.addEventListener('keydown', e => {
         // Escape close dropdown

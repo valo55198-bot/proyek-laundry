@@ -23,9 +23,13 @@ if (logoutOverlay) {
 }
 
 // Konfirmasi logout: tombol Ya, Keluar
+// URL logout dibaca dari data-logout-url agar berfungsi di root maupun di dalam /dashboard/
 const confirmBtn = document.querySelector('#logout-overlay .btn-confirm');
 if (confirmBtn) {
     confirmBtn.addEventListener('click', function() {
-        window.location.href = 'logout.php';
+        const url = (logoutOverlay && logoutOverlay.dataset.logoutUrl)
+            ? logoutOverlay.dataset.logoutUrl
+            : 'logout.php';
+        window.location.href = url;
     });
 }
