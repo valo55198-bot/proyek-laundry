@@ -1,0 +1,10 @@
+[phases.setup]
+nixPkgs = ["php83"]
+
+[phases.install]
+cmds = [
+  "docker-php-ext-install mysqli"
+]
+
+[start]
+cmd = "php -S 0.0.0.0:$PORT"
