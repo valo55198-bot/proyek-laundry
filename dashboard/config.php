@@ -3,11 +3,11 @@
 session_start();
 
 
-$db_host = getenv('MYSQLHOST');
-$db_user = getenv('MYSQLUSER');
-$db_pass = getenv('MYSQLPASSWORD');
-$db_name = getenv('MYSQLDATABASE');
-$db_port = getenv('MYSQLPORT');
+$db_host = 'caboose.proxy.rlwy.net';
+$db_user = 'root';
+$db_pass = 'tVcKzxUBNfFskkwRmvLKbCBHrgZoSBvz';
+$db_name = 'railway';
+$db_port = 40556;
 
 $conn = new mysqli(
     $db_host,
