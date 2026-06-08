@@ -3,18 +3,24 @@
 session_start();
 
 
-$db_host = 'caboose.proxy.rlwy.net';
-$db_user = 'root';
-$db_pass = 'tVcKzxUBNfFskkwRmvLKbCBHrgZoSBvz';
-$db_name = 'railway';
-$db_port = 40556;
+$db_host = getenv('MYSQLHOST');
+$db_user = getenv('MYSQLUSER');
+$db_pass = getenv('MYSQLPASSWORD');
+$db_name = getenv('MYSQLDATABASE');
+$db_port = getenv('MYSQLPORT');
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+$conn = new mysqli(
+    $db_host,
+    $db_user,
+    $db_pass,
+    $db_name,
+    $db_port
+);
 
 if ($conn->connect_error) {
-    die('<h3 style="color:#DC2626;font-family:Inter,sans-serif;">
-         Koneksi database gagal: ' . $conn->connect_error . '</h3>');
+    die('Koneksi database gagal: ' . $conn->connect_error);
 }
+
 
 $conn->set_charset('utf8mb4');
 
