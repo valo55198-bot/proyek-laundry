@@ -3,11 +3,11 @@
 session_start();
 
 
-$db_host = 'mysql.railway.internal';
+$db_host = 'caboose.proxy.rlwy.net';
 $db_user = 'root';
 $db_pass = 'tVcKzxUBNfFskkwRmvLKbCBHrgZoSBvz';
 $db_name = 'railway';
-$db_port = 3306;
+$db_port = 40556;
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
