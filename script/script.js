@@ -59,8 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (target) {
                     e.preventDefault();
                     smoothScrollTo(target);
-                    navMenu.classList.remove('open');
-                    navToggle.classList.remove('active');
+                    if (typeof closeNav === 'function') {
+                        closeNav();
+                    } else {
+                        navMenu.classList.remove('open');
+                        navToggle.classList.remove('active');
+                        const overlay = document.getElementById('navOverlay');
+                        if (overlay) overlay.classList.remove('show');
+                    }
                 }
             }
         });
@@ -81,19 +87,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ── Mobile Menu Toggle ── */
+    /* ── Mobile Menu Toggle & Overlay ── */
+    const navOverlay = document.getElementById('navOverlay');
+
+    function closeNav() {
+        navMenu.classList.remove('open');
+        navToggle.classList.remove('active');
+        if (navOverlay) navOverlay.classList.remove('show');
+    }
+
     navToggle.addEventListener('click', () => {
         navMenu.classList.toggle('open');
         navToggle.classList.toggle('active');
+        if (navOverlay) navOverlay.classList.toggle('show');
     });
 
-    // Close menu on outside click
-    document.addEventListener('click', e => {
-        if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-            navMenu.classList.remove('open');
-            navToggle.classList.remove('active');
-        }
-    });
+    if (navOverlay) {
+        navOverlay.addEventListener('click', closeNav);
+    }
 
     /* ══════════════════════════════
        2. SCROLL ANIMATIONS (Intersection Observer)

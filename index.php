@@ -24,6 +24,7 @@ session_start();
 <body>
 
     <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+    <div class="navbar__overlay" id="navOverlay"></div>
     <nav id="navbar" class="navbar">
         <div class="container navbar__inner">
             <a href="#home" class="navbar__brand">
@@ -35,18 +36,21 @@ session_start();
             </button>
 
             <ul class="navbar__menu" id="navMenu">
-                <li><a href="#home" class="navbar__link active">Home</a></li>
-                <li><a href="#service" class="navbar__link">Service</a></li>
-                <li><a href="#review" class="navbar__link">Review</a></li>
+                <li><a href="#home" class="navbar__link active">Beranda</a></li>
+                <li><a href="#service" class="navbar__link">Layanan</a></li>
+                <li><a href="#review" class="navbar__link">Ulasan</a></li>
                 <li><a href="#lacak" class="navbar__link">Lacak Cucian</a></li>
-                <li><a href="#contact" class="navbar__link">Contact</a></li>
+                <li><a href="#contact" class="navbar__link">Kontak</a></li>
                 <li class="navbar__separator" aria-hidden="true"></li>
                 <?php if (isset($_SESSION['id'])): ?>
                 <li><a href="riwayat_pesanan.php" class="navbar__link"><i class="fas fa-clipboard-list"></i> Pesanan</a></li>
-                <li class="navbar__user-area">
+                <li class="navbar__user-profile">
                     <a href="profile.php" class="navbar__avatar-link" title="Profil Saya">
                         <?= strtoupper(substr($_SESSION['nama'], 0, 1)) ?>
                     </a>
+                    <span class="navbar__user-fullname"><?= htmlspecialchars($_SESSION['nama'] ?? '') ?></span>
+                </li>
+                <li class="navbar__user-logout">
                     <a href="logout.php" class="navbar__btn-logout logout-btn">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
@@ -623,11 +627,11 @@ session_start();
             <div class="footer__links">
                 <h4>Menu</h4>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#service">Service</a></li>
-                    <li><a href="#review">Review</a></li>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#service">Layanan</a></li>
+                    <li><a href="#review">Ulasan</a></li>
                     <li><a href="#lacak">Lacak Cucian</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact">Kontak</a></li>
                 </ul>
             </div>
 
