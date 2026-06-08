@@ -561,7 +561,7 @@ html, body {
     display: none;
     padding-right: 0;
   }
-  #viewLogin { display: flex; }
+  .card:not(.reg) #viewLogin { display: flex; }
   .card.reg #viewLogin { display: none; }
   .card.reg #viewRegister { display: flex; }
   .form-heading { font-size: 28px; }
