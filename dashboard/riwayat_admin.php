@@ -252,6 +252,7 @@ if ($filterStatus === 'Selesai') {
         </div>
     </div>
 
+    <script src="../script/dashboard.js?v=<?= time() ?>"></script>
     <script src="../script/logout-modal.js?v=<?= time() ?>"></script>
 </body>
 </html>

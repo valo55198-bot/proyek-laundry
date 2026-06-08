@@ -1674,7 +1674,7 @@ img {
 
 .cf-row-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     gap: 16px;
 }
 
@@ -2103,7 +2103,7 @@ img {
 
 @media (max-width: 768px) {
     section#contact .cf-row-grid {
-        display: block !important;
+        grid-template-columns: 1fr !important;
     }
     
     section#contact .cf-row-grid > .cfc__field {
@@ -2184,6 +2184,47 @@ img {
     section#contact .contact__submit {
         width: 100% !important;
         justify-content: center !important;
+    }
+}
+
+/* ── Form fields — Mobile-first date/time fix ── */
+@media (max-width: 480px) {
+    /* Force single-column stacking at very narrow viewports */
+    .cf-row-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Ensure date & time inputs are full width, properly touch-sized */
+    .cfc__field input[type="date"],
+    .cfc__field input[type="time"] {
+        width: 100% !important;
+        min-height: 48px;
+        font-size: 1rem;
+        padding: 12px 14px;
+        box-sizing: border-box;
+    }
+
+    /* General form inputs on very small screens */
+    .cfc__field input,
+    .cfc__field textarea,
+    .cfc__field select {
+        width: 100% !important;
+        box-sizing: border-box;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+
+    /* Remove excess gap between stacked fields */
+    .cf-row-grid {
+        gap: 0 !important;
+    }
+
+    .cf-row-grid > .cfc__field {
+        margin-bottom: 16px;
+    }
+
+    .cf-row-grid > .cfc__field:last-child {
+        margin-bottom: 0;
     }
 }
 

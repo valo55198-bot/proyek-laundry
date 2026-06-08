@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) { header('Location: ../login.php'); exit; }
 
 $adminNama = e($_SESSION['nama'] ?? 'Admin');
 
-$data = $conn->query("SELECT * FROM pengiriman ORDER BY id_pengiriman DESC");
+$data = $conn->query("SELECT * FROM pengiriman ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="id">
