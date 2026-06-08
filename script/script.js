@@ -498,4 +498,97 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('touchend', stopDrag);
     }
 
+    /* ══════════════════════════════
+       8b. SWIPE TO WHATSAPP BUTTON
+       ══════════════════════════════ */
+    const swipeWaContainer = document.getElementById('swipeWaContainer');
+    const swipeWaThumb = document.getElementById('swipeWaThumb');
+    const swipeWaText = document.getElementById('swipeWaText');
+    const swipeWaIcon = document.getElementById('swipeWaIcon');
+    
+    if (swipeWaContainer && swipeWaThumb) {
+        let isDraggingWa = false;
+        let startXWa = 0;
+        let maxDragWa = 0;
+        const waUrl = "https://wa.me/6285604086257";
+
+        const initDragWa = (clientX) => {
+            if (swipeWaContainer.classList.contains('success')) return;
+
+            isDraggingWa = true;
+            startXWa = clientX - (parseInt(swipeWaThumb.style.left) || 6);
+            maxDragWa = swipeWaContainer.offsetWidth - swipeWaThumb.offsetWidth - 6;
+            
+            swipeWaThumb.style.transition = 'none';
+        };
+
+        const onDragWa = (clientX) => {
+            if (!isDraggingWa) return;
+            let currentX = clientX - startXWa;
+            
+            if (currentX < 6) currentX = 6;
+            if (currentX > maxDragWa) currentX = maxDragWa;
+            
+            swipeWaThumb.style.left = currentX + 'px';
+            
+            // Fade text out as we drag
+            const opacity = 1 - (currentX / maxDragWa);
+            swipeWaText.style.opacity = Math.max(0, opacity);
+        };
+
+        const stopDragWa = () => {
+            if (!isDraggingWa) return;
+            isDraggingWa = false;
+            
+            const currentX = parseInt(swipeWaThumb.style.left) || 6;
+            swipeWaThumb.style.transition = 'left 0.3s ease, background-color 0.3s';
+            
+            // If dragged past 80%, trigger success
+            if (currentX >= maxDragWa * 0.8) {
+                swipeWaThumb.style.left = maxDragWa + 'px';
+                swipeWaContainer.classList.add('success');
+                swipeWaText.textContent = 'Membuka WhatsApp...';
+                swipeWaText.style.opacity = 1;
+                swipeWaIcon.className = 'fas fa-check';
+                
+                // Open WhatsApp link in a new tab
+                window.open(waUrl, '_blank');
+                
+                // Reset after a delay so they can click/swipe it again if needed
+                setTimeout(() => {
+                    swipeWaContainer.classList.remove('success');
+                    swipeWaThumb.style.left = '6px';
+                    swipeWaText.textContent = 'Geser untuk Chat WhatsApp';
+                    swipeWaIcon.className = 'fab fa-whatsapp';
+                    swipeWaText.style.opacity = 1;
+                }, 2000);
+            } else {
+                // Snap back
+                swipeWaThumb.style.left = '6px';
+                swipeWaText.style.opacity = 1;
+            }
+        };
+
+        // Mouse events
+        swipeWaThumb.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            initDragWa(e.clientX);
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (isDraggingWa) onDragWa(e.clientX);
+        });
+        document.addEventListener('mouseup', stopDragWa);
+
+        // Touch events
+        swipeWaThumb.addEventListener('touchstart', (e) => {
+            initDragWa(e.touches[0].clientX);
+        }, { passive: true });
+        document.addEventListener('touchmove', (e) => {
+            if (isDraggingWa) {
+                onDragWa(e.touches[0].clientX);
+            }
+        }, { passive: false });
+        document.addEventListener('touchend', stopDragWa);
+    }
+
 });

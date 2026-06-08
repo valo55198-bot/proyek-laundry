@@ -551,6 +551,7 @@ html, body {
     display: block;
     overflow: visible;
     max-width: 100%;
+    margin-left: 0;
   }
   .form-view {
     position: relative;
@@ -575,7 +576,7 @@ html, body {
   .img-panel { height: 220px; }
   .img-panel__body { padding: 0 24px 32px 24px; }
   .img-panel__quote h2 { font-size: 22px; }
-  .forms-container { min-height: 380px; }
+  .forms-container { min-height: 380px; margin-left: 0; }
   .popup-box { width: 92vw; }
   .popup-msg { font-size: 14px; padding: 20px 18px 14px; }
 }

@@ -1576,6 +1576,11 @@ img {
     font-weight: 600;
 }
 
+.contact__map-desc {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
 /* WhatsApp CTA Button */
 .contact__wa-btn {
     display: flex;
@@ -1887,6 +1892,74 @@ img {
     border-color: #fff;
 }
 
+/* Swipe to WhatsApp Button */
+.swipe-wa {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 52px;
+    background: #25D366; /* WhatsApp Green */
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    user-select: none;
+    transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+.swipe-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    filter: brightness(1.05);
+}
+
+.swipe-wa.success {
+    background: #128C7E; /* Darker WhatsApp Green */
+}
+
+.swipe-wa__text {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.swipe-wa__thumb {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.25rem;
+    cursor: grab;
+    z-index: 2;
+    transition: background-color 0.3s;
+    touch-action: none;
+}
+
+.swipe-wa__thumb:active {
+    cursor: grabbing;
+}
+
+.swipe-wa.success .swipe-wa__thumb {
+    background: #fff;
+    color: #128C7E;
+    border-color: #fff;
+}
+
 .contact__submit:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: var(--shadow-lg);
@@ -2006,9 +2079,9 @@ img {
         max-width: 100% !important;
     }
 
-    section#contact .contact__wa-btn {
+    section#contact .swipe-wa {
         width: 100% !important;
-        max-width: 320px;
+        max-width: 320px !important;
     }
 
     section#contact .contact__title {
@@ -2043,10 +2116,45 @@ img {
     
     section#contact .contact__info {
         padding: 32px 24px !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        border-radius: var(--radius-lg) !important;
+        margin-bottom: 16px !important;
+    }
+
+    section#contact .contact__desc {
+        text-align: left !important;
+    }
+
+    section#contact .contact__details {
+        align-items: flex-start !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    section#contact .contact__item {
+        display: flex !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        gap: 16px !important;
+    }
+
+    section#contact .contact__text {
+        text-align: left !important;
+    }
+
+    section#contact .contact__text p {
+        text-align: left !important;
+    }
+
+    section#contact .contact__map-desc {
+        margin-top: 16px !important;
+        margin-bottom: 12px !important;
     }
 
     section#contact .contact__form-card {
         padding: 32px 24px !important;
+        border-radius: var(--radius-lg) !important;
     }
 
     section#contact .cfc__map-toolbar {
@@ -2391,8 +2499,9 @@ img {
     }
 
     .hero__stats {
-        flex-direction: column;
-        gap: 16px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 24px;
     }
 
     .hero__buttons {

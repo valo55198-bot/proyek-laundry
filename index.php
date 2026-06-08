@@ -397,7 +397,7 @@ session_start();
 
                 <!-- ═══ LEFT — Info Section ═══ -->
                 <div class="contact__info">
-                    <h2 class="contact__title">Diskusikan Kebutuhan <br>Laundry Anda</span></h2>
+                    <h2 class="contact__title">Diskusikan Kebutuhan <br>Laundry Anda</h2>
                     <p class="contact__desc">Apakah Anda mencari layanan laundry berkualitas tinggi yang disesuaikan dengan kebutuhan Anda? Hubungi kami sekarang.</p>
 
                     <div class="contact__details">
@@ -442,16 +442,16 @@ session_start();
                         </div>
                     </div>
 
-                    <div class="contact__map-desc" style="margin-top: 1.5rem; margin-bottom: 1rem;">
-                        <h4 style="color: var(--white); font-weight: 600; margin-bottom: 0.25rem; font-size: 1rem;">Lokasi Toko Kami</h4>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0;">Silakan kunjungi lokasi kami atau hubungi via WhatsApp untuk info lebih lanjut.</p>
+                    <div class="contact__map-desc">
+                         <p class="contact__desc">Gunakan Google Maps untuk mendapatkan rute tercepat menuju toko laundry kami.</p>
+
                     </div>
 
                     <!-- Embed Google Maps -->
                     <div class="contact__map" style="border-radius: 12px; overflow: hidden; height: 200px; border: 1px solid rgba(255, 255, 255, 0.1);">
                         <!-- Nanti src iframe ini bisa diganti sendiri dengan link embed maps toko aslinya -->
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.341180218151!2d108.2713188147699!3d-6.349830595405021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6eb94dfaaaaaab%3A0x1234567890abcdef!2sIndramayu%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1717000000000!5m2!1sid!2sid" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.021436195122!2d108.28572257486886!3d-6.391235393599273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6eb88ad31f12b7%3A0xb55cc05ba2c921a5!2sJl.%20P%26K%20Lama%2C%20Sindangkerta%2C%20Kec.%20Lohbener%2C%20Kabupaten%20Indramayu%2C%20Jawa%20Barat%2045252!5e0!3m2!1sen!2sid!4v1780933410070!5m2!1sen!2sid" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
@@ -461,11 +461,12 @@ session_start();
                         </iframe>
                     </div>
 
-                    <a href="https://wa.me/6281234567890" class="contact__wa-btn" style="margin-top: 1.5rem;" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Chat WhatsApp Sekarang</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="swipe-wa" id="swipeWaContainer" style="margin-top: 1.5rem;">
+                        <div class="swipe-wa__text" id="swipeWaText">Chat WhatsApp</div>
+                        <div class="swipe-wa__thumb" id="swipeWaThumb">
+                            <i class="fab fa-whatsapp" id="swipeWaIcon"></i>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ═══ RIGHT — Form Card ═══ -->
