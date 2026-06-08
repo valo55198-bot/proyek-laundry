@@ -44,7 +44,7 @@ $stmt2 = $conn->prepare("INSERT INTO pengiriman (kode_order, nama, no_hp, alamat
 $stmt2->bind_param('sssssssssdd', $kode_order, $nama, $no_hp, $alamat, $pesan, $pencucian, $layanan, $tanggal, $jam, $latitude, $longitude);
 
 if ($stmt1->execute() && $stmt2->execute()) {
-    $waNumber = '6285804086257'; // Nomor WhatsApp admin
+    $waNumber = '6285604086257'; // Nomor WhatsApp admin
     $waMessage = "*Pesanan Baru Rumah Laundry*\n\n"
         . "*Kode Order:* {$kode_order}\n"
         . "*Nama:* {$nama}\n"

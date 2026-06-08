@@ -3,10 +3,11 @@
 session_start();
 
 
-$db_host = 'localhost';
+$db_host = 'mysql.railway.internal';
 $db_user = 'root';
-$db_pass = '';
-$db_name = 'proyek_laundry';
+$db_pass = 'tVcKzxUBNfFskkwRmvLKbCBHrgZoSBvz';
+$db_name = 'railway';
+$db_port = 3306;
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
